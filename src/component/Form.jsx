@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
+import Input from "./Input";
 
 const Form = () => {
   const user = useRef({
-    id: "",
+    userID: "",
     name: "",
     age: "",
     phone: "",
@@ -18,57 +19,48 @@ const Form = () => {
     if (!user.current.phone) return alert("Enter Phone number");
     if (!user.current.email) return alert("Enter Email");
     const id = Math.ceil(Math.random() * 1000);
-    setData([...data, { ...user.current, id: id }]);
+    setData([...data, { ...user.current, userID: id }]);
+    console.log(data);
   };
 
   // try to handleChange get the value from event and update it to ref
-  const handleOnChange = (e, id) => {
+  const handleOnInputChange = (e) => {
     const value = e.currentTarget.value;
-    user.current[id] = value;
+    user.current[e.currentTarget.id] = value;
   };
 
   return (
     <>
       <form onSubmit={(e) => handleSubmit(e)}>
-        <div className="form">
-          <label>Fname</label>
-          <input
-            id="name"
-            type="text"
-            onChange={(e) => handleOnChange(e, e.currentTarget.id)}
-          />
-        </div>
-        <div className="form">
-          <label>Age</label>
-          <input
-            id="age"
-            type="number"
-            onChange={(e) => handleOnChange(e, e.currentTarget.id)}
-          />
-        </div>
-        <div className="form">
-          <label>Phone</label>
-          <input
-            id="phone"
-            type="number"
-            onChange={(e) => handleOnChange(e, e.currentTarget.id)}
-          />
-        </div>
-        <div className="form">
-          <label>Email</label>
-          <input
-            id="email"
-            type="email"
-            onChange={(e) => handleOnChange(e, e.currentTarget.id)}
-          />
-        </div>
+        <Input
+          label={"Name"}
+          name={"name"}
+          onInputChange={handleOnInputChange}
+        />
+        <Input
+          label={"Age"}
+          name={"age"}
+          type={"number"}
+          onInputChange={handleOnInputChange}
+        />
+        <Input
+          label={"Phone"}
+          name={"phone"}
+          type={"number"}
+          onInputChange={handleOnInputChange}
+        />
+        <Input
+          label={"Email"}
+          name={"email"}
+          onInputChange={handleOnInputChange}
+        />
         <div className="form">
           <button type="submit">Submit</button>
         </div>
       </form>
       <ul>
         {data.map((user) => (
-          <li key={user.id}>{user.name}</li>
+          <li key={user.userID}>{user.name}</li>
         ))}
       </ul>
     </>

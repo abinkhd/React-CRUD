@@ -1,8 +1,8 @@
 import "./App.css";
-import { Users } from "./component/Users";
+import Form from "./component/Form";
 
 function App() {
-  return <Users />;
+  return <Form />;
 }
 
 export default App;
