@@ -11,6 +11,12 @@ const Form = () => {
   });
 
   const [data, setData] = useState([]);
+  const [selectedUser, setSelectedUser] = useState({
+    name: "",
+    age: "",
+    phone: "",
+    email: "",
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,13 +26,17 @@ const Form = () => {
     if (!user.current.email) return alert("Enter Email");
     const id = Math.ceil(Math.random() * 1000);
     setData([...data, { ...user.current, userID: id }]);
-    console.log(data);
   };
 
   // try to handleChange get the value from event and update it to ref
   const handleOnInputChange = (e) => {
     const value = e.currentTarget.value;
     user.current[e.currentTarget.id] = value;
+  };
+
+  const handleClick = (user) => {
+    setSelectedUser(user);
+    console.log(user);
   };
 
   return (
@@ -60,7 +70,9 @@ const Form = () => {
       </form>
       <ul>
         {data.map((user) => (
-          <li key={user.userID}>{user.name}</li>
+          <li onClick={(e) => handleClick(e, user.userID)} key={user.userID}>
+            {user.name}
+          </li>
         ))}
       </ul>
     </>
