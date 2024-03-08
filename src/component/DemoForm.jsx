@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import Input from "./Input";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 const DemoForm = () => {
   const user = useRef({
@@ -11,15 +10,12 @@ const DemoForm = () => {
   });
 
   const [userData, setUserData] = useState([]);
-  const [userID, setUserID] = useState("");
   const [selectedData, setSelectedData] = useState({
     name: "",
     age: "",
     phone: "",
     email: "",
   });
-
-  console.log(selectedData);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,12 +32,8 @@ const DemoForm = () => {
     const value = e.currentTarget.value;
     user.current[e.currentTarget.id] = value;
   };
-
   const handleClick = (id) => {
-    setUserID(id);
-    // console.log(userID);
-    // console.log(userData.find((user) => user.userID === selectedUser.userID));
-    console.log(userData.find((user) => user.userID === userID));
+    setSelectedData(userData.find((user) => user.userID === id));
   };
 
   return (
@@ -52,21 +44,41 @@ const DemoForm = () => {
           <input
             id="name"
             type="text"
+            key={selectedData.name}
             defaultValue={selectedData.name}
             onChange={handleChange}
           />
         </div>
         <div className="form">
           <label>Age</label>
-          <input id="age" type="number" onChange={handleChange} />
+          <input
+            id="age"
+            type="number"
+            key={selectedData.age}
+            defaultValue={selectedData.age}
+            onChange={handleChange}
+          />
         </div>
         <div className="form">
           <label>Phone</label>
-          <input id="phone" type="number" onChange={handleChange} />
+          <input
+            contentEditable="true"
+            id="phone"
+            key={selectedData.phone}
+            defaultValue={selectedData.phone}
+            type="number"
+            onChange={handleChange}
+          />
         </div>
         <div className="form">
           <label>Email</label>
-          <input id="email" type="text" onChange={handleChange} />
+          <input
+            id="email"
+            type="text"
+            key={selectedData.email}
+            defaultValue={selectedData.email}
+            onChange={handleChange}
+          />
         </div>
         <div className="form">
           <button type="submit">Submit</button>
