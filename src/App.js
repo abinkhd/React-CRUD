@@ -4,7 +4,7 @@ import DemoForm from "./component/DemoForm";
 import Form from "./component/Form";
 
 function App() {
-  return <DemoForm />;
+  return <Form />;
 }
 
 export default App;

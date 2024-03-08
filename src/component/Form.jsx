@@ -10,7 +10,7 @@ const Form = () => {
     email: "",
   });
 
-  const [data, setData] = useState([]);
+  const [userData, setUserData] = useState([]);
   const [selectedUser, setSelectedUser] = useState({
     name: "",
     age: "",
@@ -25,7 +25,7 @@ const Form = () => {
     if (!user.current.phone) return alert("Enter Phone number");
     if (!user.current.email) return alert("Enter Email");
     const id = Math.ceil(Math.random() * 1000);
-    setData([...data, { ...user.current, userID: id }]);
+    setUserData([...userData, { ...user.current, userID: id }]);
   };
 
   // try to handleChange get the value from event and update it to ref
@@ -34,9 +34,9 @@ const Form = () => {
     user.current[e.currentTarget.id] = value;
   };
 
-  const handleClick = (user) => {
-    setSelectedUser(user);
-    console.log(user);
+  const handleClick = (id) => {
+    setSelectedUser(userData.find((user) => user.userID === id));
+    console.log(selectedUser);
   };
 
   return (
@@ -45,23 +45,27 @@ const Form = () => {
         <Input
           label={"Name"}
           name={"name"}
+          defaultValue={selectedUser.name}
           onInputChange={handleOnInputChange}
         />
         <Input
           label={"Age"}
           name={"age"}
           type={"number"}
+          defaultValue={selectedUser.age}
           onInputChange={handleOnInputChange}
         />
         <Input
           label={"Phone"}
           name={"phone"}
           type={"number"}
+          defaultValue={selectedUser.phone}
           onInputChange={handleOnInputChange}
         />
         <Input
           label={"Email"}
           name={"email"}
+          defaultValue={selectedUser.email}
           onInputChange={handleOnInputChange}
         />
         <div className="form">
@@ -69,8 +73,8 @@ const Form = () => {
         </div>
       </form>
       <ul>
-        {data.map((user) => (
-          <li onClick={(e) => handleClick(e, user.userID)} key={user.userID}>
+        {userData.map((user) => (
+          <li onClick={() => handleClick(user.userID)} key={user.userID}>
             {user.name}
           </li>
         ))}
