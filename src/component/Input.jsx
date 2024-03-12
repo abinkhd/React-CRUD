@@ -1,4 +1,3 @@
-import { Label } from "@mui/icons-material";
 import { TextField } from "@mui/material";
 import React from "react";
 
@@ -13,7 +12,7 @@ const Input = ({
   return (
     <>
       <div>
-        <Label>{label}</Label>
+        <label>{label}</label>
         <TextField
           style={{ display: "flex", alignItems: "center" }}
           id={name}
