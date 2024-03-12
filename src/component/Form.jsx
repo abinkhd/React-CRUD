@@ -1,9 +1,11 @@
 import { useRef, useState } from "react";
 import Input from "./Input";
+import DefaultTable from "./DefaultTable";
+import { Button, FormControl, Paper } from "@mui/material";
 
 const Form = () => {
   const user = useRef({
-    userID: "",
+    id: "",
     name: "",
     age: "",
     phone: "",
@@ -12,7 +14,7 @@ const Form = () => {
 
   const [userData, setUserData] = useState([]);
   const [selectedUser, setSelectedUser] = useState({
-    userID: "",
+    id: "",
     name: "",
     age: "",
     phone: "",
@@ -28,12 +30,12 @@ const Form = () => {
       if (!user.current.phone) return alert("Enter Phone number");
       if (!user.current.email) return alert("Enter Email");
       const randomUserId = Math.ceil(Math.random() * 1000);
-      user.current.userID = randomUserId;
+      user.current.id = randomUserId;
       setUserData([...userData, { ...user.current }]);
     } else {
       setUserData(
         userData.map((prev) =>
-          prev.userID === selectedUser.userID
+          prev.id === selectedUser.id
             ? {
                 ...prev,
                 ...user.current,
@@ -41,7 +43,6 @@ const Form = () => {
             : prev
         )
       );
-      console.log(userData);
     }
   };
 
@@ -49,56 +50,80 @@ const Form = () => {
   const handleOnInputChange = (e) => {
     const value = e.currentTarget.value;
     user.current[e.currentTarget.id] = value;
-    console.log(user.current);
   };
 
-  const handleClick = (id) => {
-    user.current.userID = id;
-    setSelectedUser(userData.find((user) => user.userID === id));
+  const handleUpdateClick = (id) => {
+    user.current.id = id;
+    setSelectedUser(userData.find((user) => user.id === id));
     console.log(selectedUser);
     setIsUpdate(true);
+  };
+  const handleDelete = (id) => {
+    setUserData(userData.filter((user) => user.id !== id));
   };
 
   return (
     <>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <Input
-          label={"Name"}
-          name={"name"}
-          defaultValue={selectedUser.name}
-          onInputChange={handleOnInputChange}
+      <div className="form">
+        <Paper
+          elevation={10}
+          square={false}
+          style={{
+            height: "400px",
+            width: "400px",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+        >
+          <FormControl onSubmit={(e) => handleSubmit(e)} className="form">
+            <Input
+              label={"Name"}
+              name={"name"}
+              defaultValue={selectedUser.name}
+              onInputChange={handleOnInputChange}
+            />
+            <Input
+              label={"Age"}
+              name={"age"}
+              maxLength="2"
+              defaultValue={selectedUser.age}
+              onInputChange={handleOnInputChange}
+            />
+            <Input
+              label={"Phone"}
+              name={"phone"}
+              type={"number"}
+              defaultValue={selectedUser.phone}
+              onInputChange={handleOnInputChange}
+            />
+            <Input
+              label={"Email"}
+              name={"email"}
+              type={"email"}
+              defaultValue={selectedUser.email}
+              onInputChange={handleOnInputChange}
+            />
+            <Button
+              variant="contained"
+              onClick={handleSubmit}
+              type="submit"
+              className="TextField"
+            >
+              {isUpdate ? "Update" : "Submit"}
+            </Button>
+          </FormControl>
+        </Paper>
+      </div>
+      {userData && (
+        <DefaultTable
+          rowHeader={["User ID", "Name", "Age", "Phone", "Email"]}
+          rows={userData}
+          userObj={user}
+          onUpdateClick={handleUpdateClick}
+          onDelete={handleDelete}
         />
-        <Input
-          label={"Age"}
-          name={"age"}
-          type={"number"}
-          defaultValue={selectedUser.age}
-          onInputChange={handleOnInputChange}
-        />
-        <Input
-          label={"Phone"}
-          name={"phone"}
-          type={"number"}
-          defaultValue={selectedUser.phone}
-          onInputChange={handleOnInputChange}
-        />
-        <Input
-          label={"Email"}
-          name={"email"}
-          defaultValue={selectedUser.email}
-          onInputChange={handleOnInputChange}
-        />
-        <div className="form">
-          <button type="submit">{isUpdate ? "Update" : "Submit"}</button>
-        </div>
-      </form>
-      <ul>
-        {userData.map((user) => (
-          <li onClick={() => handleClick(user.userID)} key={user.userID}>
-            {user.name}
-          </li>
-        ))}
-      </ul>
+      )}
     </>
   );
 };

@@ -1,17 +1,31 @@
+import { Label } from "@mui/icons-material";
+import { TextField } from "@mui/material";
 import React from "react";
 
-const Input = ({ label, onInputChange, name, type, defaultValue }) => {
+const Input = ({
+  maxLength,
+  label,
+  onInputChange,
+  name,
+  type,
+  defaultValue,
+}) => {
   return (
-    <div className="form">
-      <label>{label}</label>
-      <input
-        id={name}
-        defaultValue={defaultValue}
-        key={defaultValue}
-        type={type}
-        onChange={onInputChange}
-      />
-    </div>
+    <>
+      <div>
+        <Label>{label}</Label>
+        <TextField
+          style={{ display: "flex", alignItems: "center" }}
+          id={name}
+          defaultValue={defaultValue}
+          key={defaultValue}
+          type={type}
+          maxLength={maxLength}
+          onChange={onInputChange}
+          variant="standard"
+        />
+      </div>
+    </>
   );
 };
 
