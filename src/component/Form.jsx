@@ -1,16 +1,18 @@
-import { useRef, useState } from "react";
-import Input from "./Input";
+import { useEffect, useRef, useState, useCallback } from "react";
+import DefaultInput from "./DefaultInput";
 import DefaultTable from "./DefaultTable";
 import { Button, FormControl, Paper } from "@mui/material";
 
 const Form = () => {
-  const user = useRef({
+  const [user, setUser] = useState({
     id: "",
     name: "",
     age: "",
     phone: "",
     email: "",
   });
+
+  const button = useRef(null);
 
   const [userData, setUserData] = useState([]);
   const [selectedUser, setSelectedUser] = useState({
@@ -22,23 +24,45 @@ const Form = () => {
   });
 
   const [isUpdate, setIsUpdate] = useState(false);
+
+  // try to handleChange get the value from event and update it to ref
+  const handleOnInputChange = (e) => {
+    const value = e.currentTarget.value;
+    user[e.currentTarget.id] = value;
+    console.log(user);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!user.name) return alert("Enter name");
+    if (!user.age) return alert("Enter age");
+    if (!user.phone) return alert("Enter Phone number");
+    if (!user.email) return alert("Enter Email");
     if (isUpdate === false) {
-      if (!user.current.name) return alert("Enter name");
-      if (!user.current.age) return alert("Enter age");
-      if (!user.current.phone) return alert("Enter Phone number");
-      if (!user.current.email) return alert("Enter Email");
       const randomUserId = Math.ceil(Math.random() * 1000);
-      user.current.id = randomUserId;
-      setUserData([...userData, { ...user.current }]);
+      user.id = randomUserId;
+      setUserData([...userData, { ...user }]);
+      setSelectedUser({
+        id: null,
+        name: null,
+        age: null,
+        phone: null,
+        email: null,
+      });
+      setUser({
+        id: "",
+        name: "",
+        age: "",
+        phone: "",
+        email: "",
+      });
     } else {
       setUserData(
         userData.map((prev) =>
           prev.id === selectedUser.id
             ? {
                 ...prev,
-                ...user.current,
+                ...user,
               }
             : prev
         )
@@ -46,14 +70,9 @@ const Form = () => {
     }
   };
 
-  // try to handleChange get the value from event and update it to ref
-  const handleOnInputChange = (e) => {
-    const value = e.currentTarget.value;
-    user.current[e.currentTarget.id] = value;
-  };
-
   const handleUpdateClick = (id) => {
-    user.current.id = id;
+    user.id = id;
+    setUser(userData.find((user) => user.id === id));
     setSelectedUser(userData.find((user) => user.id === id));
     console.log(selectedUser);
     setIsUpdate(true);
@@ -76,28 +95,28 @@ const Form = () => {
             justifyContent: "center",
           }}
         >
-          <FormControl onSubmit={(e) => handleSubmit(e)} className="form">
-            <Input
+          <form onSubmit={handleSubmit} className="form">
+            <DefaultInput
               label={"Name"}
-              name={"name"}
               defaultValue={selectedUser.name}
+              name={"name"}
               onInputChange={handleOnInputChange}
             />
-            <Input
+            <DefaultInput
               label={"Age"}
               name={"age"}
               maxLength="2"
               defaultValue={selectedUser.age}
               onInputChange={handleOnInputChange}
             />
-            <Input
+            <DefaultInput
               label={"Phone"}
               name={"phone"}
               type={"number"}
               defaultValue={selectedUser.phone}
               onInputChange={handleOnInputChange}
             />
-            <Input
+            <DefaultInput
               label={"Email"}
               name={"email"}
               type={"email"}
@@ -105,17 +124,17 @@ const Form = () => {
               onInputChange={handleOnInputChange}
             />
             <Button
+              ref={button}
               variant="contained"
-              onClick={handleSubmit}
               type="submit"
               className="TextField"
             >
               {isUpdate ? "Update" : "Submit"}
             </Button>
-          </FormControl>
+          </form>
         </Paper>
       </div>
-      {userData && (
+      {userData.length > 0 ? (
         <DefaultTable
           rowHeader={["User ID", "Name", "Age", "Phone", "Email"]}
           rows={userData}
@@ -123,6 +142,8 @@ const Form = () => {
           onUpdateClick={handleUpdateClick}
           onDelete={handleDelete}
         />
+      ) : (
+        ""
       )}
     </>
   );

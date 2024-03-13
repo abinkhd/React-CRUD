@@ -17,13 +17,12 @@ const DefaultTable = ({
   onUpdateClick,
   onDelete,
 }) => {
-  const keys = Object.keys(userObj.current);
   return (
     <>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
-            <TableRow>
+            <TableRow key={"header"}>
               {rowHeader.map((header) => (
                 <TableCell key={header}>{header}</TableCell>
               ))}
@@ -34,16 +33,25 @@ const DefaultTable = ({
           <TableBody>
             {rows.map((row) => (
               <TableRow key={row.id}>
-                {keys.map((key) => (
-                  <>
-                    <TableCell component="th" scope="row" key={key}>
-                      {row[key]}
-                    </TableCell>
-                  </>
-                ))}
+                <TableCell component="th" scope="row">
+                  {row.id}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {row.age}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {row.phone}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {row.email}
+                </TableCell>
                 <TableCell>
                   <Button
                     variant="outlined"
+                    size="small"
                     onClick={() => onUpdateClick(row.id)}
                     startIcon={<ModeEditIcon />}
                   >
@@ -53,6 +61,7 @@ const DefaultTable = ({
                 <TableCell>
                   {" "}
                   <Button
+                    size="small"
                     variant="outlined"
                     color="error"
                     startIcon={<DeleteIcon />}

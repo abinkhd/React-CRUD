@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material";
 import React from "react";
 
-const Input = ({
+const DefaultInput = ({
   maxLength,
   label,
   onInputChange,
@@ -18,7 +18,6 @@ const Input = ({
           id={name}
           defaultValue={defaultValue}
           key={defaultValue}
-          type={type}
           maxLength={maxLength}
           onChange={onInputChange}
           variant="standard"
@@ -28,4 +27,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default DefaultInput;
