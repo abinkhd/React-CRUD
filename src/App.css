@@ -11,3 +11,9 @@ label {
   align-items: center;
   justify-content: center;
 }
+.header-style {
+  color: white;
+  background-color: #1976d2;
+  border-radius: 3px;
+  font-family: serif;
+}
