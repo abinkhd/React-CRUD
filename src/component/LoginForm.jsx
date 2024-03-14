@@ -1,7 +1,6 @@
-import { TextField, Button, Paper, Avatar, Grid, Link } from "@mui/material";
+import { TextField, Button, Paper, Avatar, Grid } from "@mui/material";
 import { useState } from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Padding } from "@mui/icons-material";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -34,6 +33,7 @@ const LoginForm = () => {
               id="standard-basic"
               label="Password"
               variant="standard"
+              type="password"
               onChange={(e) => setPassword(e.currentTarget.value)}
             />
           </div>

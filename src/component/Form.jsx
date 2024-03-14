@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useRef, useState } from "react";
 import DefaultInput from "./DefaultInput";
 import DefaultTable from "./DefaultTable";
-import { Button, FormControl, Paper } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 
 const Form = () => {
   const [user, setUser] = useState({
@@ -67,6 +67,13 @@ const Form = () => {
             : prev
         )
       );
+      setUser({
+        id: "",
+        name: "",
+        age: "",
+        phone: "",
+        email: "",
+      });
     }
   };
 
@@ -112,8 +119,9 @@ const Form = () => {
             <DefaultInput
               label={"Phone"}
               name={"phone"}
-              type={"number"}
+              type="number"
               defaultValue={selectedUser.phone}
+              m
               onInputChange={handleOnInputChange}
             />
             <DefaultInput
@@ -138,7 +146,6 @@ const Form = () => {
         <DefaultTable
           rowHeader={["User ID", "Name", "Age", "Phone", "Email"]}
           rows={userData}
-          userObj={user}
           onUpdateClick={handleUpdateClick}
           onDelete={handleDelete}
         />

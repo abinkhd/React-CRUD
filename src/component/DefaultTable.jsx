@@ -10,13 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { Button } from "@mui/material";
 
-const DefaultTable = ({
-  userObj,
-  rowHeader,
-  rows,
-  onUpdateClick,
-  onDelete,
-}) => {
+const DefaultTable = ({ rowHeader, rows, onUpdateClick, onDelete }) => {
   return (
     <>
       <TableContainer component={Paper}>

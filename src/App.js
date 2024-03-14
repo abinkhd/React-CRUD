@@ -1,9 +1,8 @@
 import "./App.css";
-
-import Form from "./component/Form";
+import Login from "./component/Login";
 
 function App() {
-  return <Form />;
+  return <Login />;
 }
 
 export default App;
