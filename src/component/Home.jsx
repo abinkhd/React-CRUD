@@ -5,7 +5,7 @@ import CardHeader from "@mui/material/CardHeader";
 
 const Home = () => {
   return (
-    <Grid container spacing={2}>
+    <Grid container>
       <Grid item xs={12}>
         <CardHeader title="CRUD App" className="header-style"></CardHeader>
       </Grid>
