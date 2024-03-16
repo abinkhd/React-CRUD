@@ -103,6 +103,7 @@ const Form = () => {
           }}
         >
           <form onSubmit={handleSubmit} className="form">
+            <h3>Add Users</h3>
             <DefaultInput
               label={"Name"}
               defaultValue={selectedUser.name}

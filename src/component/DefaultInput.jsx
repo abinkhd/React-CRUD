@@ -1,4 +1,4 @@
-import { Input } from "@mui/material";
+import { TextField } from "@mui/material";
 import React from "react";
 
 const DefaultInput = ({
@@ -13,10 +13,10 @@ const DefaultInput = ({
   return (
     <>
       <div>
-        <label>{label}</label>
-        <Input
+        <TextField
           style={{ display: "flex", alignItems: "center" }}
           id={name}
+          label={label}
           defaultValue={defaultValue}
           type={type}
           key={defaultValue}

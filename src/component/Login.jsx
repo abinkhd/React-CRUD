@@ -1,22 +1,17 @@
 import React from "react";
-import { CardHeader, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import LoginForm from "./LoginForm";
 import "../Styles.module.css";
 
 const Login = () => {
   return (
-    <Grid
-      container
-      spacing={5}
-      columns={2}
-      direction="column"
-      justifyContent="space-between"
-      alignItems="stretch"
-    >
-      <Grid item>
-        <CardHeader title="CRUD App" className="header-style"></CardHeader>
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <nav className="navbar justify-content-between header-style">
+          <h3>CRUD App</h3>
+        </nav>
       </Grid>
-      <Grid align="center" item>
+      <Grid align="center" item xs={12}>
         <LoginForm />
       </Grid>
     </Grid>
