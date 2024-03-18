@@ -2,7 +2,6 @@ import { TextField } from "@mui/material";
 import React from "react";
 
 const DefaultInput = ({
-  maxLength,
   label,
   onInputChange,
   name,
@@ -18,9 +17,9 @@ const DefaultInput = ({
           id={name}
           label={label}
           defaultValue={defaultValue}
-          type={type}
+          type={type}       
           key={defaultValue}
-          minlength={minLength}
+          minLength={minLength}
           onChange={onInputChange}
           variant="standard"
         />

@@ -1,25 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Grid } from "@mui/material";
 import Form from "./Form";
-import { jwtDecode } from "jwt-decode";
-import { useNavigate } from "react-router-dom";
 import { Logout } from "./Logout";
 
-const Home = () => {
-  const navigate = useNavigate();
-  function getCurrentUser() {
-    try {
-      const jwt = localStorage.getItem("token");
-      return jwtDecode(jwt);
-    } catch (error) {
-      return null;
-    }
-  }
-  const data = getCurrentUser();
-  useEffect(() => {
-    if (!data) navigate("/");
-  }, [data, navigate]);
-
+const Home = ({ jwt }) => {
+  console.log(jwt);
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>

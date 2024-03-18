@@ -21,8 +21,14 @@ const LoginForm = () => {
       localStorage.setItem("token", jwt);
       navigate("/home");
     } catch (ex) {
-      if (ex.response && ex.response.status >= 400) {
-        setError(ex.message);
+      if (
+        ex.response &&
+        ex.response.status >= 400 &&
+        ex.response &&
+        ex.response.status < 500
+      ) {
+        console.log(ex.message);
+        setError("Invalid Username or Password");
       }
     }
   }

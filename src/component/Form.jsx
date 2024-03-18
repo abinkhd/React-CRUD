@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import DefaultInput from "./DefaultInput";
 import DefaultTable from "./DefaultTable";
 import { Button, Paper } from "@mui/material";
@@ -29,56 +29,57 @@ const Form = () => {
   const handleOnInputChange = (e) => {
     const value = e.currentTarget.value;
     user[e.currentTarget.id] = value;
-    console.log(user);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!user.name) return alert("Enter name");
-    if (!user.age) return alert("Enter age");
-    if (!user.phone) return alert("Enter Phone number");
-    if (!user.email) return alert("Enter Email");
-    if (isUpdate === false) {
-      const randomUserId = Math.ceil(Math.random() * 1000);
-      user.id = randomUserId;
-      setUserData([...userData, { ...user }]);
-      setSelectedUser({
-        id: null,
-        name: null,
-        age: null,
-        phone: null,
-        email: null,
-      });
-      setUser({
-        id: "",
-        name: "",
-        age: "",
-        phone: "",
-        email: "",
-      });
-    } else {
-      setUserData(
-        userData.map((prev) =>
-          prev.id === selectedUser.id
-            ? {
-                ...prev,
-                ...user,
-              }
-            : prev
-        )
-      );
-      setUser({
-        id: "",
-        name: "",
-        age: "",
-        phone: "",
-        email: "",
-      });
-    }
-  };
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (!user.name) return alert("Enter name");
+      if (!user.age) return alert("Enter age");
+      if (!user.phone) return alert("Enter Phone number");
+      if (!user.email) return alert("Enter Email");
+      if (isUpdate === false) {
+        const randomUserId = Math.ceil(Math.random() * 1000);
+        user.id = randomUserId;
+        setUserData([...userData, { ...user }]);
+        setSelectedUser({
+          id: null,
+          name: null,
+          age: null,
+          phone: null,
+          email: null,
+        });
+      } else {
+        setUserData(
+          userData.map((prev) =>
+            prev.id === selectedUser.id
+              ? {
+                  ...prev,
+                  ...user,
+                }
+              : prev
+          )
+        );
+        setUser({
+          id: "",
+          name: "",
+          age: "",
+          phone: "",
+          email: "",
+        });
+        setSelectedUser({
+          id: null,
+          name: null,
+          age: null,
+          phone: null,
+          email: null,
+        });
+      }
+    },
+    [isUpdate, selectedUser.id, user, userData]
+  );
 
   const handleUpdateClick = (id) => {
-    user.id = id;
     setUser(userData.find((user) => user.id === id));
     setSelectedUser(userData.find((user) => user.id === id));
     console.log(selectedUser);
@@ -87,6 +88,8 @@ const Form = () => {
   const handleDelete = (id) => {
     setUserData(userData.filter((user) => user.id !== id));
   };
+
+  useEffect(() => {}, [handleSubmit, user]);
 
   return (
     <>
