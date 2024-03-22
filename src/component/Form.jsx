@@ -91,18 +91,19 @@ const Form = () => {
             <Input
               label={"Age"}
               name={"age"}
-              type={"number"}
               max={"99"}
+              maxLength={"2"}
               defaultValue={selectedUser.age}
               onInputChange={handleOnInputChange}
             />
             <Input
               label={"Phone"}
               name={"phone"}
-              type="number"
               defaultValue={selectedUser.phone}
               m
               onInputChange={handleOnInputChange}
+              max={"9999999999"}
+              maxLength={"10"}
             />
             <Input
               label={"Email"}
