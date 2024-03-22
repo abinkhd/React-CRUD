@@ -2,24 +2,20 @@ import { TextField } from "@mui/material";
 import React from "react";
 
 const DefaultInput = ({
-  label,
   onInputChange,
   name,
-  type,
   defaultValue,
-  minLength,
+  ...rest
 }) => {
   return (
     <>
       <div>
         <TextField
           style={{ display: "flex", alignItems: "center" }}
+          {...rest}
           id={name}
-          label={label}
           defaultValue={defaultValue}
-          type={type}       
           key={defaultValue}
-          minLength={minLength}
           onChange={onInputChange}
           variant="standard"
         />
