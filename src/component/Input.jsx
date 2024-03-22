@@ -1,12 +1,7 @@
 import { TextField } from "@mui/material";
 import React from "react";
 
-const DefaultInput = ({
-  onInputChange,
-  name,
-  defaultValue,
-  ...rest
-}) => {
+const Input = ({ onInputChange, name, defaultValue, max, ...rest }) => {
   return (
     <>
       <div>
@@ -14,6 +9,7 @@ const DefaultInput = ({
           style={{ display: "flex", alignItems: "center" }}
           {...rest}
           id={name}
+          max={max}
           defaultValue={defaultValue}
           key={defaultValue}
           onChange={onInputChange}
@@ -24,4 +20,4 @@ const DefaultInput = ({
   );
 };
 
-export default DefaultInput;
+export default Input;

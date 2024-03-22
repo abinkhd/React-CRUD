@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import DefaultInput from "./DefaultInput";
+import Input from "./Input";
 import DefaultTable from "./DefaultTable";
 import { Button, Paper } from "@mui/material";
 
@@ -81,20 +81,22 @@ const Form = () => {
         >
           <form onSubmit={handleSubmit} className="form">
             <h3>Add Users</h3>
-            <DefaultInput
+            <Input
               label={"Name"}
               defaultValue={selectedUser.name}
+              maxlength={"7"}
               name={"name"}
               onInputChange={handleOnInputChange}
             />
-            <DefaultInput
+            <Input
               label={"Age"}
               name={"age"}
-              maxLength="2"
+              type={"number"}
+              max={"99"}
               defaultValue={selectedUser.age}
               onInputChange={handleOnInputChange}
             />
-            <DefaultInput
+            <Input
               label={"Phone"}
               name={"phone"}
               type="number"
@@ -102,7 +104,7 @@ const Form = () => {
               m
               onInputChange={handleOnInputChange}
             />
-            <DefaultInput
+            <Input
               label={"Email"}
               name={"email"}
               type={"email"}
