@@ -8,6 +8,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import NavBar from "../NavBar";
 
 export const Users = () => {
   const [users, setUsers] = useState([]);
@@ -18,6 +19,9 @@ export const Users = () => {
   }, []);
   return (
     <>
+      <nav className="navbar justify-content-between header-style">
+        <h3>CRUD App</h3>
+      </nav>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>

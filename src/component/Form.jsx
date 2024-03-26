@@ -15,20 +15,13 @@ const Form = () => {
   const button = useRef(null);
 
   const [userData, setUserData] = useState([]);
-  const [selectedUser, setSelectedUser] = useState({
-    id: "",
-    name: "",
-    age: "",
-    phone: "",
-    email: "",
-  });
 
   const [isUpdate, setIsUpdate] = useState(false);
 
   // try to handleChange get the value from event and update it to ref
   const handleOnInputChange = (e) => {
     const value = e.currentTarget.value;
-    user[e.currentTarget.id] = value;
+    setUser({ ...user, [e.currentTarget.id]: value });
   };
 
   const handleSubmit = (e) => {
@@ -44,7 +37,7 @@ const Form = () => {
     } else {
       setUserData(
         userData.map((prev) =>
-          prev.id === selectedUser.id
+          prev.id === user.id
             ? {
                 ...prev,
                 ...user,
@@ -57,8 +50,6 @@ const Form = () => {
 
   const handleUpdateClick = (id) => {
     setUser(userData.find((user) => user.id === id));
-    setSelectedUser(userData.find((user) => user.id === id));
-    console.log(selectedUser);
     setIsUpdate(true);
   };
   const handleDelete = (id) => {
@@ -83,23 +74,23 @@ const Form = () => {
             <h3>Add Users</h3>
             <Input
               label={"Name"}
-              defaultValue={selectedUser.name}
+              value={user.name}
               maxlength={"7"}
-              name={"name"}
+              id={"name"}
               onInputChange={handleOnInputChange}
             />
             <Input
               label={"Age"}
-              name={"age"}
+              id={"age"}
               max={"99"}
               maxLength={"2"}
-              defaultValue={selectedUser.age}
+              value={user.age}
               onInputChange={handleOnInputChange}
             />
             <Input
               label={"Phone"}
-              name={"phone"}
-              defaultValue={selectedUser.phone}
+              id={"phone"}
+              value={user.phone}
               m
               onInputChange={handleOnInputChange}
               max={"9999999999"}
@@ -107,9 +98,9 @@ const Form = () => {
             />
             <Input
               label={"Email"}
-              name={"email"}
+              id={"email"}
               type={"email"}
-              defaultValue={selectedUser.email}
+              value={user.email}
               onInputChange={handleOnInputChange}
             />
             <Button

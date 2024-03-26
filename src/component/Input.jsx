@@ -3,7 +3,7 @@ import React from "react";
 
 const Input = ({
   onInputChange,
-  name,
+  id,
   defaultValue,
   max,
   maxLength,
@@ -13,14 +13,12 @@ const Input = ({
     <>
       <div>
         <TextField
-          style={{ display: "flex", alignItems: "center" }}
-          {...rest}
-          id={name}
-          defaultValue={defaultValue}
-          key={defaultValue}
+          id={id}
           onChange={onInputChange}
-          variant="standard"
           inputProps={{ maxLength: maxLength, max: max }}
+          style={{ display: "flex", alignItems: "center" }}
+          variant="standard"
+          {...rest}
         />
       </div>
     </>
