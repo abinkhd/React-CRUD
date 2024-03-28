@@ -3,6 +3,13 @@ import Input from "./Input";
 import DefaultTable from "./DefaultTable";
 import { Button, Paper } from "@mui/material";
 
+const paperStyle = {
+  height: "400px",
+  width: "400px",
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "center",
+};
 const Form = () => {
   const [user, setUser] = useState({
     id: "",
@@ -19,7 +26,7 @@ const Form = () => {
   const [isUpdate, setIsUpdate] = useState(false);
 
   // try to handleChange get the value from event and update it to ref
-  const handleOnInputChange = (e) => {
+  const handleOnChange = (e) => {
     const value = e.currentTarget.value;
     setUser({ ...user, [e.currentTarget.id]: value });
   };
@@ -46,6 +53,7 @@ const Form = () => {
         )
       );
     }
+    setUser({ id: "", name: "", age: "", phone: "", email: "" });
   };
 
   const handleUpdateClick = (id) => {
@@ -59,49 +67,36 @@ const Form = () => {
   return (
     <>
       <div className="form">
-        <Paper
-          elevation={10}
-          square={false}
-          style={{
-            height: "400px",
-            width: "400px",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-          }}
-        >
+        <Paper elevation={10} square={false} style={paperStyle}>
           <form onSubmit={handleSubmit} className="form">
             <h3>Add Users</h3>
             <Input
               label={"Name"}
               value={user.name}
-              maxlength={"7"}
               id={"name"}
-              onInputChange={handleOnInputChange}
+              onChange={handleOnChange}
             />
             <Input
               label={"Age"}
               id={"age"}
-              max={"99"}
-              maxLength={"2"}
               value={user.age}
-              onInputChange={handleOnInputChange}
+              onChange={handleOnChange}
+              inputProps={{ maxLength: 2, max: 99 }}
             />
             <Input
               label={"Phone"}
               id={"phone"}
               value={user.phone}
               m
-              onInputChange={handleOnInputChange}
-              max={"9999999999"}
-              maxLength={"10"}
+              onChange={handleOnChange}
+              inputProps={{ maxLength: 10, max: 9999999999 }}
             />
             <Input
               label={"Email"}
               id={"email"}
               type={"email"}
               value={user.email}
-              onInputChange={handleOnInputChange}
+              onChange={handleOnChange}
             />
             <Button
               ref={button}
