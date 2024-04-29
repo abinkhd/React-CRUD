@@ -1,14 +1,12 @@
 import { TextField, Button, Paper, Avatar, Grid } from "@mui/material";
 import { useState } from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const endPoint = process.env.REACT_APP_API_URL;
   async function authenticateUser() {
@@ -19,7 +17,7 @@ const LoginForm = () => {
       });
       const { token: jwt } = res.data;
       localStorage.setItem("token", jwt);
-      navigate("/home");
+      window.location = "/home";
     } catch (ex) {
       if (
         ex.response &&
